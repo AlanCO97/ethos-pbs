@@ -35,6 +35,18 @@ export function handleError(error: any) {
         }
     }
 
+    // Error for 404
+    if (error.code === 'NOT_FOUND') {
+        return {
+            status: 404,
+            body: ResponseBuilder.error(
+                'Page Not Found',
+                'NOT_FOUND',
+                error.errors || error.all
+            )
+        }
+    }
+
     // Error generico
     console.error('Unhandled error:', error);
     return {
