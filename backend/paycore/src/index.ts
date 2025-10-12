@@ -7,6 +7,8 @@ import { helmet } from "elysia-helmet";
 import { rateLimit } from "elysia-rate-limit";
 import { handleError, AppError } from "./infrastructure/adapters/http/common/middlewares/errorHandler";
 import { swagger } from "@elysiajs/swagger";
+import { projectController } from "./infrastructure/di/project";
+import { createProjectRoutes } from "./infrastructure/adapters/http/project/routes/projectRoutes";
 
 
 const app = new Elysia({ prefix: '/api' })
@@ -45,6 +47,7 @@ const app = new Elysia({ prefix: '/api' })
       tags: [
           { name: 'Authentication', description: 'Endpoints de autenticación' },
           { name: 'Users', description: 'Gestión de usuarios' },
+          { name: 'Projects', description: 'Gestión de proyectos' },
       ],
       components: {
           securitySchemes: {
@@ -58,6 +61,7 @@ const app = new Elysia({ prefix: '/api' })
   }}))
   .use(Logestic.preset('fancy')
   .use(createUserRoutes(userController))
+  .use(createProjectRoutes(projectController))
 )
 
 const port = Number(process.env.PORT) || 3000;
