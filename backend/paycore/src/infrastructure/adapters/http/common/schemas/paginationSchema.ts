@@ -1,4 +1,4 @@
-import { t, TSchema } from "elysia";
+import { t } from "elysia";
 
 export const paginationQuery = t.Object({
     page: t.Optional(t.Numeric({ 

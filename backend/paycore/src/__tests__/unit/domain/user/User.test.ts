@@ -1,4 +1,3 @@
-// src/__tests__/unit/domain/user/User.test.ts
 import { describe, it, expect } from 'bun:test';
 import { User } from '../../../../domain/user/User';
 

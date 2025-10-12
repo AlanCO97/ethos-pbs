@@ -1,4 +1,4 @@
-import { ResponseBuilder } from "../../../../application/dtos/responses/ApiResponse";
+import { ResponseBuilder } from "../../../../../application/common/dtos/responses/ApiResponse";
 
 export class AppError extends Error {
     constructor(

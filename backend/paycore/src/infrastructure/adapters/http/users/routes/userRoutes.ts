@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { UserController } from "../controllers/userController";
-import { signInDocumentation, signInSchema, signUpDocumentation, signUpSchema, getAllUsersSchema, getAllUsersSchemaDocumentation } from "../schemas/userSchemas";
-import { authGuard } from "../middlewares/auth";
+import { authGuard } from "../../common/middlewares/auth";
 import { jwt } from "@elysiajs/jwt";
+import { signUpSchema, signUpDocumentation, signInSchema, signInDocumentation, getAllUsersSchema, getAllUsersSchemaDocumentation } from "../schemas/userSchemas";
 
 
 export const createUserRoutes = (userController: UserController) => {

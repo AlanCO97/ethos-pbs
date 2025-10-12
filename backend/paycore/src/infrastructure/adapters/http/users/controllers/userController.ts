@@ -1,9 +1,9 @@
-import { SignInRequestDTO } from "../../../../application/dtos/requests/SignInRequestDTO";
-import { SignUpRequestDTO } from "../../../../application/dtos/requests/SignUpRequestDTO";
-import { ResponseBuilder } from "../../../../application/dtos/responses/ApiResponse";
-import { AuthResponseData, UserResponseData } from "../../../../application/dtos/responses/UserResponse";
-import { PaginationParams } from "../../../../application/ports/common";
-import { UserService } from "../../../../application/services/UserService";
+import { SignInRequestDTO } from "../../../../../application/users/dtos/requests/SignInRequestDTO";
+import { SignUpRequestDTO } from "../../../../../application/users/dtos/requests/SignUpRequestDTO";
+import { ResponseBuilder } from "../../../../../application/common/dtos/responses/ApiResponse";
+import { AuthResponseData, UserResponseData } from "../../../../../application/users/dtos/responses/UserResponse";
+import { PaginationParams } from "../../../../../application/common/ports/Pagination";
+import { UserService } from "../../../../../application/users/services/UserService";
 
 export class UserController {
     constructor(private userService: UserService) {}

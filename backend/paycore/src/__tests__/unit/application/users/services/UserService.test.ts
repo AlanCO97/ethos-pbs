@@ -1,12 +1,12 @@
-import { beforeAll, beforeEach, describe, expect, it, mock } from "bun:test";
-import { SignUpRequestDTO } from "../../../../application/dtos/requests/SignUpRequestDTO";
-import { UserRepository } from "../../../../application/ports/UserRepository";
-import { UserService } from "../../../../application/services/UserService";
-import { User } from "../../../../domain/user/User";
-import { PaginatedResult } from "../../../../application/ports/common";
-import { AppError } from "../../../../infrastructure/adapters/http/middlewares/errorHandler";
-import { SignInRequestDTO } from "../../../../application/dtos/requests/SignInRequestDTO";
-import { PasswordService } from "../../../../application/ports/passwordService";
+import { beforeEach, describe, expect, it, mock } from "bun:test";
+import { SignUpRequestDTO } from "../../../../../application/users/dtos/requests/SignUpRequestDTO";
+import { User } from "../../../../../domain/user/User";
+import { PaginatedResult } from "../../../../../application/common/ports/Pagination";
+import { AppError } from "../../../../../infrastructure/adapters/http/common/middlewares/errorHandler";
+import { SignInRequestDTO } from "../../../../../application/users/dtos/requests/SignInRequestDTO";
+import { PasswordService } from "../../../../../application/users/ports/passwordService";
+import { UserRepository } from "../../../../../application/users/ports/UserRepository";
+import { UserService } from "../../../../../application/users/services/UserService";
 
 describe('UserService', () => {
     let userService: UserService;

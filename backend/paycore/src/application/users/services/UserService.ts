@@ -1,10 +1,11 @@
-import { SignUpRequestDTO } from "../dtos/requests/SignUpRequestDTO";
+import { User } from "../../../domain/user/User";
+import { AppError } from "../../../infrastructure/adapters/http/common/middlewares/errorHandler";
 import { SignInRequestDTO } from "../dtos/requests/SignInRequestDTO";
-import { UserRepository } from "../ports/UserRepository";
-import { User } from "../../domain/user/User";
-import { AppError } from "../../infrastructure/adapters/http/middlewares/errorHandler";
-import { PaginationParams } from "../ports/common";
+import { SignUpRequestDTO } from "../dtos/requests/SignUpRequestDTO";
+import { PaginationParams } from "../../common/ports/Pagination";
 import { PasswordService } from "../ports/passwordService";
+import { UserRepository } from "../ports/UserRepository";
+
 
 export class UserService {
     constructor(

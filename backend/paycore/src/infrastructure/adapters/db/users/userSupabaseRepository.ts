@@ -1,8 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { UserRepository } from "../../../application/ports/UserRepository";
-import { User } from "../../../domain/user/User";
-import { PaginationParams, PaginatedResult } from "../../../application/ports/common";
-import { AppError } from "../http/middlewares/errorHandler";
+import { PaginationParams, PaginatedResult } from "../../../../application/common/ports/Pagination";
+import { User } from "../../../../domain/user/User";
+import { AppError } from "../../http/common/middlewares/errorHandler";
+import { UserRepository } from "../../../../application/users/ports/UserRepository";
 
 export class UserSupabaseRepository implements UserRepository {
     constructor(private supabase: SupabaseClient) {}

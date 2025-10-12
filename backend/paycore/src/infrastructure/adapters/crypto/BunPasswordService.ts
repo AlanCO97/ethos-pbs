@@ -1,4 +1,4 @@
-import { PasswordService } from "../../../application/ports/passwordService";
+import { PasswordService } from "../../../application/users/ports/passwordService";
 
 export class BunPasswordService implements PasswordService {
     async hash(password: string): Promise<string> {

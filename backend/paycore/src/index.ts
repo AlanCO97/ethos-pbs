@@ -1,13 +1,12 @@
 import { Elysia } from "elysia";
 import { Logestic } from "logestic";
-import { createUserRoutes } from "./infrastructure/adapters/http/routes/userRoutes";
-import { userController } from "./infrastructure/di/container";
+import { createUserRoutes } from "./infrastructure/adapters/http/users/routes/userRoutes";
+import { userController } from "./infrastructure/di/users";
 import { cors } from "@elysiajs/cors";
 import { helmet } from "elysia-helmet";
 import { rateLimit } from "elysia-rate-limit";
-import { handleError, AppError } from "./infrastructure/adapters/http/middlewares/errorHandler";
+import { handleError, AppError } from "./infrastructure/adapters/http/common/middlewares/errorHandler";
 import { swagger } from "@elysiajs/swagger";
-import { jwt } from "@elysiajs/jwt";
 
 
 const app = new Elysia({ prefix: '/api' })
@@ -59,7 +58,11 @@ const app = new Elysia({ prefix: '/api' })
   }}))
   .use(Logestic.preset('fancy')
   .use(createUserRoutes(userController))
-).listen(3000)
+)
+
+const port = Number(process.env.PORT) || 3000;
+
+app.listen(port)
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
