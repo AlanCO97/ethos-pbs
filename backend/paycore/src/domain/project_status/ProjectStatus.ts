@@ -16,4 +16,11 @@ export class ProjectStatus {
             row.deleted ? new Date(row.deleted) : null
         );
     }
+
+    toPublicResponse() {
+        return {
+            id: this.id,
+            name: this.name,
+        };
+    }
 }
