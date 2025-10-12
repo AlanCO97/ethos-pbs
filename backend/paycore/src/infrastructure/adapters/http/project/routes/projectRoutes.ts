@@ -2,7 +2,7 @@ import {Elysia} from "elysia";
 import { ProjectController } from "../controllers/projectController";
 import { jwt } from "@elysiajs/jwt";
 import { authGuard } from "../../common/middlewares/auth";
-import { createProjectDocumentation, createProjectSchema } from "../schemas/projectSchemas";
+import { createProjectDocumentation, createProjectSchema, getAllProjectsSchema, getAllProjectsSchemaDocumentation } from "../schemas/projectSchemas";
 
 export const createProjectRoutes = (projectController: ProjectController) => {
     return new Elysia({prefix: '/projects'})
@@ -20,5 +20,12 @@ export const createProjectRoutes = (projectController: ProjectController) => {
         }, {
             ...createProjectSchema,
             detail: createProjectDocumentation
+        })
+        .get('/all', async ({ query, user }) => {
+            console.log('Usuario autenticado:', user);
+            return await projectController.getAll({query})
+        }, {
+            ...getAllProjectsSchema,
+            detail: getAllProjectsSchemaDocumentation,
         });
 }

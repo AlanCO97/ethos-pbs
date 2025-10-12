@@ -1,5 +1,6 @@
 import { Project } from "../../../domain/project/Project";
 import { AppError } from "../../../infrastructure/adapters/http/common/middlewares/errorHandler";
+import { PaginationParams } from "../../common/ports/Pagination";
 import { ProjectStatusRepository } from "../../proyect_status/ports/ProjectStatusRepository";
 import { CreateRequestDTO } from "../dtos/requests/CreateRequestDTO";
 import { ProjectRepository } from "../ports/ProjectRepository";
@@ -22,7 +23,11 @@ export class ProjectService {
 
 
         const project = Project.create(dto.name, defaultStatus)
-        
+
         return this.projectRepo.create(project)
+    }
+
+    async getAll(pagination?: PaginationParams) {
+        return await this.projectRepo.getAll(pagination);
     }
 }
