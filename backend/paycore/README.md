@@ -41,6 +41,19 @@ src
 │   │   │       └── ApiResponse.ts
 │   │   └── ports
 │   │       └── Pagination.ts
+│   ├── project
+│   │   ├── dtos
+│   │   │   ├── requests
+│   │   │   │   └── CreateRequestDTO.ts
+│   │   │   └── responses
+│   │   │       └── ProjectResponse.ts
+│   │   ├── ports
+│   │   │   └── ProjectRepository.ts
+│   │   └── services
+│   │       └── projectService.ts
+│   ├── proyect_status
+│   │   └── ports
+│   │       └── ProjectStatusRepository.ts
 │   └── users
 │       ├── dtos
 │       │   ├── requests
@@ -54,6 +67,10 @@ src
 │       └── services
 │           └── UserService.ts
 ├── domain
+│   ├── project
+│   │   └── Project.ts
+│   ├── project_status
+│   │   └── ProjectStatus.ts
 │   └── user
 │       └── User.ts
 ├── index.ts
@@ -62,6 +79,10 @@ src
     │   ├── crypto
     │   │   └── BunPasswordService.ts
     │   ├── db
+    │   │   ├── project
+    │   │   │   └── projectSupabaseRepository.ts
+    │   │   ├── project_status
+    │   │   │   └── projectStatusSupabaseRepository.ts
     │   │   └── users
     │   │       ├── migrations
     │   │       │   └── create_users_table.sql
@@ -74,6 +95,13 @@ src
     │       │   └── schemas
     │       │       ├── paginationSchema.ts
     │       │       └── responseSchemas.ts
+    │       ├── project
+    │       │   ├── controllers
+    │       │   │   └── projectController.ts
+    │       │   ├── routes
+    │       │   │   └── projectRoutes.ts
+    │       │   └── schemas
+    │       │       └── projectSchemas.ts
     │       └── users
     │           ├── controllers
     │           │   └── userController.ts
@@ -84,6 +112,7 @@ src
     ├── config
     │   └── supabase.ts
     └── di
+        ├── project.ts
         └── users.ts
 ```
 
