@@ -63,6 +63,8 @@ src
     │   │   └── BunPasswordService.ts
     │   ├── db
     │   │   └── users
+    │   │       ├── migrations
+    │   │       │   └── create_users_table.sql
     │   │       └── userSupabaseRepository.ts
     │   └── http
     │       ├── common
