@@ -8,7 +8,7 @@ import { paginationQuery } from "../../common/schemas/paginationSchema";
 export const publicProjectSchema = t.Object({
     id: t.String(),
     name: t.String(),
-    status: t.String(), // nombre del status
+    status: t.String(),
 });
 
 /* ===============================
