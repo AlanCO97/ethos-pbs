@@ -1,6 +1,6 @@
-import { ProyectStatus } from "../../../domain/project_status/ProjectStatus";
+import { ProjectStatus } from "../../../domain/project_status/ProjectStatus";
 
 export interface ProjectStatusRepository {
-    getDefault(): Promise<ProyectStatus | null>
-    getByID(id: number): Promise<ProyectStatus | null>
+    getDefault(): Promise<ProjectStatus | null>
+    getByID(id: number): Promise<ProjectStatus | null>
 }

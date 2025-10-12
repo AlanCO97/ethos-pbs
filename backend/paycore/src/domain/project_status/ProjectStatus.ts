@@ -1,4 +1,4 @@
-export class ProyectStatus {
+export class ProjectStatus {
     constructor(
         public id: string,
         public name: string,
@@ -7,8 +7,8 @@ export class ProyectStatus {
         public deleted: Date | null = null,
     ){}
 
-    static fromDatabase(row: any): ProyectStatus {
-        return new ProyectStatus(
+    static fromDatabase(row: any): ProjectStatus {
+        return new ProjectStatus(
             row.id.toString(),
             row.name,
             new Date(row.created_at),

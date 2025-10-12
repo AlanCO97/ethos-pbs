@@ -1,11 +1,11 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { ProjectStatusRepository } from "../../../../application/proyect_status/ports/ProjectStatusRepository";
-import { ProyectStatus } from "../../../../domain/project_status/ProjectStatus";
+import { ProjectStatus } from "../../../../domain/project_status/ProjectStatus";
 
 export class ProjectStatusSupabaseRepository implements ProjectStatusRepository {
     constructor(private supabase: SupabaseClient) {}
 
-    async getDefault(): Promise<ProyectStatus | null> {
+    async getDefault(): Promise<ProjectStatus | null> {
         const { data, error } = await this.supabase
             .from('project_status')
             .select('*')
@@ -19,10 +19,10 @@ export class ProjectStatusSupabaseRepository implements ProjectStatusRepository 
             throw error;
         }
 
-        return ProyectStatus.fromDatabase(data)
+        return ProjectStatus.fromDatabase(data)
     }
 
-    async getByID(id: number): Promise<ProyectStatus | null> {
+    async getByID(id: number): Promise<ProjectStatus | null> {
         const { data, error } = await this.supabase
             .from('project_status')
             .select('*')
@@ -36,6 +36,6 @@ export class ProjectStatusSupabaseRepository implements ProjectStatusRepository 
             throw error;
         }
 
-        return ProyectStatus.fromDatabase(data)
+        return ProjectStatus.fromDatabase(data)
     }
 }
