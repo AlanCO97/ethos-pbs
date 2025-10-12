@@ -1,5 +1,6 @@
 import { t } from 'elysia';
-import { errorResponseSchema, paginatedResponseSchema, paginationQuery, successResponseSchema } from './common';
+import { paginationQuery } from './paginationSchema';
+import { successResponseSchema, paginatedResponseSchema, errorResponseSchema } from './responseSchemas';
 
 /* ===============================
         Domain Schema
