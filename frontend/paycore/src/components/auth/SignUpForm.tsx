@@ -95,7 +95,7 @@ export function SignUpForm() {
                     <Input
                         id="name"
                         placeholder="Your name"
-                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl ${
                         errors.name ? 'border-red-500 focus:border-red-500' : ''
                         }`}
                         {...register('name')}
@@ -113,7 +113,7 @@ export function SignUpForm() {
                     <Input
                         id="paternalSurname"
                         placeholder="Your paternal name"
-                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl ${
                             errors.paternalSurname ? 'border-red-500 focus:border-red-500' : ''
                         }`}
                         {...register('paternalSurname')}
@@ -131,7 +131,7 @@ export function SignUpForm() {
                     <Input
                         id="maternalSurname"
                         placeholder="Your maternal name"
-                        className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
+                        className="bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl"
                         {...register('maternalSurname')}
                         disabled={isPending}
                     />
@@ -145,7 +145,7 @@ export function SignUpForm() {
                         id="email"
                         type="email"
                         placeholder="Your email address"
-                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl ${
                         errors.email ? 'border-red-500 focus:border-red-500' : ''
                         }`}
                         {...register('email')}
@@ -164,7 +164,7 @@ export function SignUpForm() {
                         id="password"
                         type="password"
                         placeholder="Your password"
-                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl ${
                         errors.password ? 'border-red-500 focus:border-red-500' : ''
                         }`}
                         {...register('password')}

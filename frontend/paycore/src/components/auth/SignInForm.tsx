@@ -1,25 +1,43 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthFooter } from "../footer/AuthFooter";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { SignInFormData, signInSchema } from "@/lib/schemas/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { signInAction } from "@/actions/auth";
+import { toast } from "sonner";
 
 export function SignInForm() {
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+    mode: "onBlur",
+  });
+
+  const onSubmit = (data: SignInFormData) => {
+    startTransition(async () => {
+      const result = await signInAction(data);
+
+      if (result.success) {
+        toast.success(result.message || "¡Login exitoso!");
+        router.push("/");
+      } else {
+        toast.error(result.message || "Error al hacer login");
+      }
+    });
   };
 
   return (
@@ -35,8 +53,8 @@ export function SignInForm() {
         </CardHeader>
 
         <CardContent className="space-y-6">
-          {/* Formulario */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <Label htmlFor="email" className="text-gray-300 mb-2">
                 Email
@@ -45,8 +63,15 @@ export function SignInForm() {
                 id="email"
                 type="email"
                 placeholder="Your email address"
-                className="bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl"
+                className={`bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl ${
+                errors.email ? 'border-red-500 focus:border-red-500' : ''
+                }`}
+                {...register('email')}
+                disabled={isPending}
               />
+              {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+              )}
             </div>
 
             <div>
@@ -57,11 +82,18 @@ export function SignInForm() {
                 id="password"
                 type="password"
                 placeholder="Your password"
-                className="bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl"
+                className={`bg-transparent border-gray-700 focus:border-blue-600 text-white rounded-2xl ${
+                errors.password ? 'border-red-500 focus:border-red-500' : ''
+                }`}
+                {...register('password')}
+                disabled={isPending}
               />
+              {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+              )}
             </div>
 
-            {/* Checkbox con Shadcn */}
+
             <div className="flex items-center gap-2 mt-4">
               <Checkbox
                 id="remember"
@@ -72,12 +104,12 @@ export function SignInForm() {
               </Label>
             </div>
 
-            <Button 
+            <Button
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-4"
-              disabled={loading}
+              disabled={isPending}
             >
-              {loading ? "Signing in..." : "Sign in"}
+              {isPending ? "Signing in..." : "Sign in"}
             </Button>
           </form>
 
