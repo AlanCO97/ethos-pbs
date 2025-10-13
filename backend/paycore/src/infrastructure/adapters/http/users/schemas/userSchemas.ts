@@ -5,16 +5,6 @@ import { paginationQuery } from '../../common/schemas/paginationSchema';
 /* ===============================
         Domain Schema
    =============================== */
-export const userSchema = t.Object({
-  id: t.String(),
-  name: t.String(),
-  paternalSurname: t.String(),
-  maternalSurname: t.Optional(t.Nullable(t.String())),
-  email: t.String(),
-  createdAt: t.String(),
-  updatedAt: t.String(),
-});
-
 export const publicUserSchema = t.Object({
   id: t.String(),
   name: t.String(),
@@ -25,11 +15,10 @@ export const publicUserSchema = t.Object({
 /* ===============================
               Res Body
    =============================== */
-export const userResponseSchema = successResponseSchema(userSchema);
 
 export const publicUserResponseSchema = successResponseSchema(publicUserSchema);
 
-export const signUpResponseSchema = userResponseSchema;
+export const signUpResponseSchema = publicUserResponseSchema;
 
 export const signInResponseSchema = successResponseSchema(
   t.Object({
