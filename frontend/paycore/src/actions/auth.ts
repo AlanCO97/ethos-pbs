@@ -14,6 +14,14 @@ export interface AuthResponse {
   timestamp: string;
 }
 
+interface ValidationDetail {
+  path: string;
+  message: string;
+  schema?: {
+    error?: string;
+  };
+}
+
 const API_URL = process.env.API_URL || "http://localhost:3001";
 
 export async function signUpAction(formData: SignUpFormData): Promise<AuthResponse> {
@@ -35,11 +43,32 @@ export async function signUpAction(formData: SignUpFormData): Promise<AuthRespon
     const result = await response.json();
 
     if (!response.ok) {
-      return {
-        success: false,
-        message: result.error.message || "Error al crear la cuenta",
-        timestamp: result.timestamp || "",
-      };
+
+        const { error, timestamp } = result;
+
+        if (error.code === "VALIDATION_ERROR" && Array.isArray(error.details)) {
+            const details: ValidationDetail[] = error.details.map((d: ValidationDetail) => ({
+                path: d.path,
+                message: d.schema?.error || d.message,
+                schema: d.schema,
+            }));
+
+            const message = details
+                .map((d) => `${d.path.replace(/^\//, "")}: ${d.message} `)
+                .join("");
+
+            return {
+                success: false,
+                message: message || error.message || "Error de validación",
+                timestamp: timestamp || "",
+            };
+        }
+
+        return {
+            success: false,
+            message: error.message || "Error al crear la cuenta",
+            timestamp: timestamp || "",
+        };
     }
 
     return {
