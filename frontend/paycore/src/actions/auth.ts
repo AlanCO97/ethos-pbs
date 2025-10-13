@@ -1,14 +1,6 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
-export interface SignUpData {
-  name: string;
-  paternalSurname: string;
-  maternalSurname: string;
-  email: string;
-  password: string;
-}
+import { SignUpFormData } from "@/lib/schemas/auth";
 
 export interface SignInData {
   email: string;
@@ -18,13 +10,13 @@ export interface SignInData {
 export interface AuthResponse {
   success: boolean;
   message?: string;
-  data?: any;
+  data?: Record<string, unknown>;
   timestamp: string;
 }
 
 const API_URL = process.env.API_URL || "http://localhost:3001";
 
-export async function signUpAction(formData: SignUpData): Promise<AuthResponse> {
+export async function signUpAction(formData: SignUpFormData): Promise<AuthResponse> {
   try {
     const response = await fetch(`${API_URL}/users/signup`, {
       method: "POST",

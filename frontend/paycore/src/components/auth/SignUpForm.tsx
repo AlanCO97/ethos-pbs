@@ -12,35 +12,30 @@ import {
   CardTitle,
 } from "../ui/card";
 import { AuthFooter } from "../footer/AuthFooter";
-import { signUpAction, SignUpData } from "@/actions/auth";
+import { signUpAction } from "@/actions/auth";
 import { useRouter } from "next/navigation";
-import { useTransition, useState } from "react";
+import { useTransition } from "react";
 import { toast } from "sonner";
+import { SignUpFormData, signUpSchema } from "@/lib/schemas/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 export function SignUpForm() {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
-    const [formData, setFormData] = useState<SignUpData>({
-        name: "",
-        paternalSurname: "",
-        maternalSurname: "",
-        email: "",
-        password: "",
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<SignUpFormData>({
+        resolver: zodResolver(signUpSchema),
+        mode: "onBlur",
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, value } = e.target;
-        setFormData((prev) => ({
-        ...prev,
-        [id]: value,
-        }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const onSubmit = (data: SignUpFormData) => {
         startTransition(async () => {
-        const result = await signUpAction(formData);
+        const result = await signUpAction(data);
 
         if (result.success) {
             toast.success(result.message || "¡Cuenta creada exitosamente!");
@@ -92,79 +87,92 @@ export function SignUpForm() {
                 <div className="border-t border-gray-700 w-16" />
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
-                <Label htmlFor="name" className="text-gray-300 mb-2">
-                    Name
-                </Label>
-                <Input
-                    id="name"
-                    placeholder="Your name"
-                    className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    disabled={isPending}
-                />
+                    <Label htmlFor="name" className="text-gray-300 mb-2">
+                        Name
+                    </Label>
+                    <Input
+                        id="name"
+                        placeholder="Your name"
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        errors.name ? 'border-red-500 focus:border-red-500' : ''
+                        }`}
+                        {...register('name')}
+                        disabled={isPending}
+                    />
+                    {errors.name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                    )}
                 </div>
 
                 <div>
-                <Label htmlFor="paternalSurname" className="text-gray-300 mb-2">
-                    Paternal Name
-                </Label>
-                <Input
-                    id="paternalSurname"
-                    placeholder="Your paternal name"
-                    className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
-                    value={formData.paternalSurname}
-                    onChange={handleChange}
-                    required
-                    disabled={isPending}
-                />
+                    <Label htmlFor="paternalSurname" className="text-gray-300 mb-2">
+                        Paternal Name
+                    </Label>
+                    <Input
+                        id="paternalSurname"
+                        placeholder="Your paternal name"
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                            errors.paternalSurname ? 'border-red-500 focus:border-red-500' : ''
+                        }`}
+                        {...register('paternalSurname')}
+                        disabled={isPending}
+                    />
+                    {errors.paternalSurname && (
+                        <p className="text-red-500 text-sm mt-1">{errors.paternalSurname.message}</p>
+                    )}
                 </div>
 
                 <div>
-                <Label htmlFor="maternalSurname" className="text-gray-300 mb-2">
-                    Maternal Name
-                </Label>
-                <Input
-                    id="maternalSurname"
-                    placeholder="Your maternal name"
-                    className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
-                    value={formData.maternalSurname}
-                    onChange={handleChange}
-                    disabled={isPending}
-                />
+                    <Label htmlFor="maternalSurname" className="text-gray-300 mb-2">
+                        Maternal Name
+                    </Label>
+                    <Input
+                        id="maternalSurname"
+                        placeholder="Your maternal name"
+                        className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
+                        {...register('maternalSurname')}
+                        disabled={isPending}
+                    />
                 </div>
 
                 <div>
-                <Label htmlFor="email" className="text-gray-300 mb-2">
-                    Email
-                </Label>
-                <Input
-                    id="email"
-                    type="email"
-                    placeholder="Your email address"
-                    className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
-                    value={formData.email}
-                    onChange={handleChange}
-                    disabled={isPending}
-                />
+                    <Label htmlFor="email" className="text-gray-300 mb-2">
+                        Email
+                    </Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        placeholder="Your email address"
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        errors.email ? 'border-red-500 focus:border-red-500' : ''
+                        }`}
+                        {...register('email')}
+                        disabled={isPending}
+                    />
+                    {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                    )}
                 </div>
 
                 <div>
-                <Label htmlFor="password" className="text-gray-300 mb-2">
-                    Password
-                </Label>
-                <Input
-                    id="password"
-                    type="password"
-                    placeholder="Your password"
-                    className="bg-transparent border-gray-700 focus:border-blue-600 text-white"
-                    value={formData.password}
-                    onChange={handleChange}
-                    disabled={isPending}
-                />
+                    <Label htmlFor="password" className="text-gray-300 mb-2">
+                        Password
+                    </Label>
+                    <Input
+                        id="password"
+                        type="password"
+                        placeholder="Your password"
+                        className={`bg-transparent border-gray-700 focus:border-blue-600 text-white ${
+                        errors.password ? 'border-red-500 focus:border-red-500' : ''
+                        }`}
+                        {...register('password')}
+                        disabled={isPending}
+                    />
+                    {errors.password && (
+                        <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                    )}
                 </div>
 
                 <div className="flex items-center gap-2 mt-4">
@@ -194,8 +202,6 @@ export function SignUpForm() {
             </p>
             </CardContent>
         </Card>
-
-        <p>{JSON.stringify(formData)}</p>
 
         <AuthFooter />
         
