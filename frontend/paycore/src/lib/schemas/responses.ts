@@ -1,7 +1,7 @@
-export interface GenericResponse {
+export interface GenericResponse<T = unknown> {
   success: boolean;
   message?: string;
-  data?: Record<string, unknown>;
+  data?: T;
   timestamp: string;
 }
 

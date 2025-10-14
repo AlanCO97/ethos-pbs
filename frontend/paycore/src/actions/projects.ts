@@ -1,7 +1,10 @@
+'use server'
+
 import { PaginationParams } from "@/lib/schemas/queryParams";
-import { PaginationResponse } from "@/lib/schemas/responses";
+import { GenericResponse, PaginationResponse } from "@/lib/schemas/responses";
 import { authenticatedFetch } from "./utils";
-import { Project } from "@/lib/schemas/project";
+import { Project, ProjectFormData } from "@/lib/schemas/project";
+import { handleApiError } from "@/lib/utils";
 
 const API_URL = process.env.API_URL || "http://localhost:3001";
 
@@ -51,6 +54,35 @@ export async function getAllProjects({
       data: [],
       pagination: {},
       timestamp: new Date().toISOString(),
+    };
+  }
+}
+
+export async function createProject(formData: ProjectFormData): Promise<GenericResponse> {
+  try {
+    const response = await authenticatedFetch(`${API_URL}/projects/create`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      return handleApiError(result);
+    }
+
+    return {
+      success: true,
+      message: result.message,
+      data: result.data,
+      timestamp: result.timestamp,
+    };
+  } catch (error) {
+    console.error("Error en createProject:", error);
+    return {
+      success: false,
+      message: "Error de conexión con el servidor",
+      timestamp: "",
     };
   }
 }
