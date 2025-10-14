@@ -77,6 +77,13 @@ export async function signInAction(
       maxAge: 60 * 60 * 24,
     });
 
+    (await cookieStore).set('fullname', result.data.user.fullName, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+    });
+
     return {
       success: true,
       message: result.message || "Login exitoso",
