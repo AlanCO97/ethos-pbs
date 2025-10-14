@@ -16,3 +16,10 @@ export const signInSchema = z.object({
 });
 
 export type SignInFormData = z.infer<typeof signInSchema>;
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  fullName: string;
+}
