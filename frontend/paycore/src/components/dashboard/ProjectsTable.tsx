@@ -39,7 +39,7 @@ export function ProjectsTable({ projects }: ProjectsTable) {
             <div className="flex items-center text-sm text-gray-400">
               <span className="inline-flex items-center gap-1">
                 <CheckCircle2 className="text-green-400" size={16} />
-                30
+                {projectsHybrid.length}
               </span>
               <span className="ml-1">this month</span>
             </div>
