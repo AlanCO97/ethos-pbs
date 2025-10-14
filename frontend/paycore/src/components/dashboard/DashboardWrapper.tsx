@@ -12,8 +12,14 @@ import { ReferralTracking } from "./ReferralTracking";
 import { SalesOverview } from "./SalesOverview";
 import { SatisfactionRate } from "./SatisfactionRate";
 import { WelcomeCard } from "./WelcomeCard";
+import { Project } from "@/lib/schemas/project";
 
-export function DashboardWrapper({ initialFullname }: { initialFullname: string }) {
+type DashboardWrapperProps = {
+  initialFullname: string,
+  projects: Project[],
+}
+
+export function DashboardWrapper({ initialFullname, projects }: DashboardWrapperProps) {
     const [ fullname ] = useState<string>(initialFullname);
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#0a0e27] via-[#0f1535] to-[#1a1f3a]">
@@ -40,7 +46,7 @@ export function DashboardWrapper({ initialFullname }: { initialFullname: string 
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <ProjectsTable />
+              <ProjectsTable projects={projects} />
             </div>
 
             <div className="lg:col-span-1">

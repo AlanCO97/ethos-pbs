@@ -35,14 +35,14 @@ export async function signUpAction(
       success: true,
       message: result.message,
       data: result,
-      timestamp: result.timestamp || "",
+      timestamp: result.timestamp || new Date().toISOString(),
     };
   } catch (error) {
     console.error("Error en signUpAction:", error);
     return {
       success: false,
       message: "Error de conexión con el servidor",
-      timestamp: "",
+      timestamp: new Date().toISOString(),
     };
   }
 }
@@ -88,14 +88,14 @@ export async function signInAction(
       success: true,
       message: result.message || "Login exitoso",
       data: result.data,
-      timestamp: result.timestamp || "",
+      timestamp: result.timestamp || new Date().toISOString(),
     };
   } catch (err) {
     console.error("Error en signInAction:", err);
     return {
       success: false,
       message: "Error de conexión con el servidor",
-      timestamp: "",
+      timestamp: new Date().toISOString(),
     };
   }
 }
