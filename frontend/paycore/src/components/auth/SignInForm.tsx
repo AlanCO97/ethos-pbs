@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthFooter } from "../footer/AuthFooter";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useTransition, useRef } from "react";
 import { SignInFormData, signInSchema } from "@/lib/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,26 @@ import { toast } from "sonner";
 
 export function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const hasShownToast = useRef(false);
+
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const sessionExpired = searchParams.get('sessionExpired') === 'true';
+
+   useEffect(() => {
+    if (sessionExpired && !hasShownToast.current) {
+      hasShownToast.current = true;
+      
+      setTimeout(() => {
+        toast.error('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+      }, 100);
+      
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete('sessionExpired');
+      window.history.replaceState({}, '', newUrl.toString());
+    }
+  }, [sessionExpired]);
 
   const {
     register,
@@ -33,7 +52,8 @@ export function SignInForm() {
 
       if (result.success) {
         toast.success(result.message || "¡Login exitoso!");
-        router.push("/");
+        router.push(callbackUrl);
+        router.refresh();
       } else {
         toast.error(result.message || "Error al hacer login");
       }
