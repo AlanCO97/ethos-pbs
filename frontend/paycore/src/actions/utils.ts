@@ -8,6 +8,11 @@ export async function getAuthToken(): Promise<string | undefined> {
   return (await cookieStore).get('auth-token')?.value;
 }
 
+export async function getUserFullName(): Promise<string> {
+  const cookieStore = cookies();
+  return (await cookieStore).get('fullname')?.value ?? "User";
+}
+
 export async function authenticatedFetch(url: string, options: RequestInit = {}) {
   const token = await getAuthToken();
   
