@@ -9,7 +9,7 @@ export default async function DashboardPage() {
 
   const projectsResponse = await getAllProjects();
 
-  const projects: Project[] = projectsResponse.success ? projectsResponse.data ?? [] : [];
+  const initialProjects: Project[] = projectsResponse.success ? projectsResponse.data ?? [] : [];
 
-  return <DashboardWrapper initialFullname={fullname ?? "User"} projects={projects} />
+  return <DashboardWrapper initialFullname={fullname ?? "User"} initialProjects={initialProjects} />
 }

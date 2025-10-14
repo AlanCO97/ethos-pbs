@@ -16,11 +16,12 @@ import { Project } from "@/lib/schemas/project";
 
 type DashboardWrapperProps = {
   initialFullname: string,
-  projects: Project[],
+  initialProjects: Project[],
 }
 
-export function DashboardWrapper({ initialFullname, projects }: DashboardWrapperProps) {
+export function DashboardWrapper({ initialFullname, initialProjects }: DashboardWrapperProps) {
     const [ fullname ] = useState<string>(initialFullname);
+    const [projects, setProjects] = useState<Project[]>(initialProjects);
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#0a0e27] via-[#0f1535] to-[#1a1f3a]">
       <SideMenu />
@@ -29,7 +30,9 @@ export function DashboardWrapper({ initialFullname, projects }: DashboardWrapper
         <TopBar />
 
         <div className="p-8">
-          <DashboardHeader fullname={fullname} />
+          <DashboardHeader fullname={fullname} onProjectAdded={(newProject) => {
+            setProjects(prev => [newProject, ...prev]);
+          }}/>
 
           <DashboardStats />
 
