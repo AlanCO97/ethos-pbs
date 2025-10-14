@@ -5,11 +5,18 @@ export interface GenericResponse {
   timestamp: string;
 }
 
-export interface PaginationResponse {
+export interface PaginationResponse<T = unknown> {
   success: boolean;
   message?: string;
-  data?: Record<string, unknown>;
-  pagination?: Record<string, unknown>;
+  data?: T;
+  pagination?: {
+    currentPage?: number,
+    totalPages?: number,
+    totalItems?: number,
+    itemsPerPage?: number,
+    hasNext?: boolean,
+    hasPrev?: boolean
+  };
   timestamp: string;
 }
 

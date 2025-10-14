@@ -3,47 +3,31 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, MoreVertical } from "lucide-react";
+import { Project } from "@/lib/schemas/project";
 
-const projects = [
-  {
-    name: "Chakra Soft UI Version",
-    members: ["👤", "👤", "👤"],
-    budget: "$14,000",
-    completion: 60,
-  },
-  {
-    name: "Add Progress Track",
-    members: ["👤"],
-    budget: "$3,000",
-    completion: 10,
-  },
-  {
-    name: "Fix Platform Errors",
-    members: ["👤"],
-    budget: "Not set",
-    completion: 100,
-  },
-  {
-    name: "Launch our Mobile App",
-    members: ["👤", "👤"],
-    budget: "$32,000",
-    completion: 100,
-  },
-  {
-    name: "Add the New Pricing Page",
-    members: ["👤", "👤", "👤"],
-    budget: "$400",
-    completion: 25,
-  },
-  {
-    name: "Redesign New Online Shop",
-    members: ["👤"],
-    budget: "$7,600",
-    completion: 40,
-  },
-];
+type ProjectsTable = {
+  projects: Project[]
+}
 
-export function ProjectsTable() {
+type ProjectsHybrid = {
+  name: string;
+  members: string[],
+  status: string,
+  completion: number
+}
+
+export function ProjectsTable({ projects }: ProjectsTable) {
+
+  const projectsHybrid: ProjectsHybrid[] = projects.map(p => {
+    return {
+      name: p.name,
+      members: ["👤", "👤", "👤"],
+      status: p.status,
+      completion: 100
+
+    }
+  })
+  
   return (
     <Card className="bg-white/5 backdrop-blur-sm border-white/10">
       <CardHeader>
@@ -70,14 +54,14 @@ export function ProjectsTable() {
           <table className="w-full">
             <thead>
               <tr className="text-left text-xs text-gray-400 uppercase">
-                <th className="pb-3 font-medium">Companies</th>
+                <th className="pb-3 font-medium">Project</th>
                 <th className="pb-3 font-medium">Members</th>
-                <th className="pb-3 font-medium">Budget</th>
+                <th className="pb-3 font-medium">Status</th>
                 <th className="pb-3 font-medium">Completion</th>
               </tr>
             </thead>
             <tbody className="text-sm">
-              {projects.map((project, idx) => (
+              {projectsHybrid.map((project, idx) => (
                 <tr key={idx} className="border-t border-white/5">
                   <td className="py-4">
                     <div className="flex items-center gap-3">
@@ -99,7 +83,7 @@ export function ProjectsTable() {
                       ))}
                     </div>
                   </td>
-                  <td className="py-4 text-white">{project.budget}</td>
+                  <td className="py-4 text-white">{project.status}</td>
                   <td className="py-4">
                     <div className="flex items-center gap-2">
                       <div className="flex-1 bg-gray-700 rounded-full h-1 max-w-[80px]">
