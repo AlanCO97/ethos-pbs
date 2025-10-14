@@ -23,7 +23,7 @@ export function DashboardWrapper({ initialFullname }: { initialFullname: string 
         <TopBar />
 
         <div className="p-8">
-          <DashboardHeader />
+          <DashboardHeader fullname={fullname} />
 
           <DashboardStats />
 

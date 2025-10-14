@@ -3,7 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 
-export function DashboardHeader() {
+type DashboardHeaderProps = {
+  fullname: string;
+};
+
+export function DashboardHeader({fullname}: DashboardHeaderProps) {
   return (
     <div className="flex justify-between items-center mb-8">
       <div>
@@ -11,7 +15,7 @@ export function DashboardHeader() {
           Dashboard
         </h1>
         <p className="text-gray-400 text-sm mt-1">
-          Bienvenido de nuevo, Mark Johnson 👋
+          Bienvenido de nuevo, {fullname} 👋
         </p>
       </div>
       <Button className="bg-blue-600 hover:bg-blue-700 text-white">
