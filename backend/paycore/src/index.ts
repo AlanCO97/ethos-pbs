@@ -42,7 +42,7 @@ const app = new Elysia({ prefix: '/api' })
       info: {
           title: 'Users API',
           version: '1.0.0',
-          description: 'API para gestión de usuarios'
+          description: 'API para gestión la gestion de PayCore'
       },
       tags: [
           { name: 'Authentication', description: 'Endpoints de autenticación' },
