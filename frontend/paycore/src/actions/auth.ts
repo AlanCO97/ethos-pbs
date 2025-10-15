@@ -51,6 +51,7 @@ export async function signInAction(
   formData: SignInFormData
 ): Promise<GenericResponse> {
   try {
+    console.log(`${API_URL}/users/signin`)
     const response = await fetch(`${API_URL}/users/signin`, {
       method: "POST",
       headers: {
