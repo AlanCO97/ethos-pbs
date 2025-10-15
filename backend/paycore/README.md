@@ -2,6 +2,35 @@
 
 Proyecto para el manejo de usuarios y proyectos de PayCore.
 
+## ✨ Características principales
+
+### 🔐 Autenticación de usuarios
+- **Registro**: Crea nuevos usuarios mediante `POST /api/users/signup`
+- **Inicio de sesión**: Autentica usuarios con `POST /api/users/signin`
+
+### 👥 Gestión de usuarios
+- **Listado de usuarios**: Obtén todos los usuarios con `GET /api/users/all`
+- **Paginación**: Controla el número de resultados con los parámetros `page` y `limit`
+  ```
+  GET /api/users/all?page=1&limit=10
+  ```
+
+### 📊 Gestión de proyectos
+- **Crear proyecto**: Registra nuevos proyectos con `POST /api/projects/create`
+- **Listar proyectos**: Consulta todos los proyectos con paginación
+  ```
+  GET /api/projects/all?page=2&limit=10
+  ```
+
+### 🎯 Respuestas estandarizadas
+Todas las respuestas del servidor siguen un formato consistente, facilitando la integración y manejo de errores.
+
+### 📖 Documentación interactiva
+Explora todos los endpoints, esquemas y prueba la API directamente desde:
+```
+http://localhost:{port}/api/swagger
+```
+
 ## 🚀 Instalación
 
 Clona el repositorio e instala dependencias:
@@ -18,8 +47,7 @@ Ejecuta el servidor en modo desarrollo:
 bun run dev
 ```
 
-El servidor estará disponible en:
-👉 http://localhost:{port}
+El servidor estará disponible en: 👉 http://localhost:{port}
 
 ## 🧱 Estructura del proyecto
 
@@ -124,11 +152,13 @@ Ejecuta los tests con:
 bun test
 ```
 
-## 📚 Documentacion
+## 📚 Documentación
 
-La Documentacion esta disponible en
+La documentación está disponible en:
 
+```
 http://localhost:{port}/api/swagger
+```
 
 ## ⚙️ Configuración
 
