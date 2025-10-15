@@ -29,3 +29,10 @@ export async function authenticatedFetch(url: string, options: RequestInit = {})
     },
   });
 }
+
+export async function logoutAction() {
+  const cookieStore = cookies();
+
+  (await cookieStore).delete("auth-token");
+  (await cookieStore).delete("fullname");
+}
