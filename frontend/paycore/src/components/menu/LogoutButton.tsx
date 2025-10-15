@@ -25,7 +25,7 @@ export default function LogoutButton() {
     >
       <LogOut size={18} />
       <span className="text-sm font-medium">
-        {isPending ? "Cerrando..." : "Cerrar sesión"}
+        {isPending ? "SigninOut..." : "SignOut"}
       </span>
     </button>
   );
