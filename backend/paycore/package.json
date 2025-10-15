@@ -3,7 +3,8 @@
   "version": "1.0.50",
   "scripts": {
     "test": "bun test",
-    "dev": "bun run --watch src/index.ts --env-file=.env"
+    "dev": "bun run --watch src/index.ts --env-file=.env",
+    "start": "bun run src/index.ts --env-file=.env"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.0",

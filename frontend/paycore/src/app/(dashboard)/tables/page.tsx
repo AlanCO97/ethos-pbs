@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAllProjects } from "@/actions/projects";
 import { getAllUsers } from "@/actions/user";
 import { TopBar } from "@/components/layout/TopBar";
