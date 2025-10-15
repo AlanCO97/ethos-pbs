@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { SignInForm } from "@/components/auth/SignInForm";
 import { AuthImage } from "@/components/auth/AuthImage";
 
