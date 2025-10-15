@@ -1,19 +1,15 @@
 "use client";
 
-
 import { useTransition } from "react";
 import { LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { logoutAction } from "@/actions/utils";
 
 export default function LogoutButton() {
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
 
   const handleLogout = async () => {
     startTransition(async () => {
       await logoutAction();
-      router.push("/signin");
     });
   };
 

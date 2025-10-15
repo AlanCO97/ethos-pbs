@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 
 export async function getAuthToken(): Promise<string | undefined> {
@@ -35,4 +36,6 @@ export async function logoutAction() {
 
   (await cookieStore).delete("auth-token");
   (await cookieStore).delete("fullname");
+
+  redirect("/signin");
 }
